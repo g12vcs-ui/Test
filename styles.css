@@ -1,0 +1,99 @@
+:root {
+  --bg: #0b0d13;
+  --panel: #131726;
+  --panel-alt: #171d31;
+  --text: #f6f8ff;
+  --subtle: #b0bad6;
+  --accent: #84a8ff;
+  --danger: #f16d6d;
+  --border: rgba(255, 255, 255, 0.11);
+}
+
+body[data-theme="light"] {
+  --bg: #eff2f8;
+  --panel: #ffffff;
+  --panel-alt: #f8faff;
+  --text: #0e1428;
+  --subtle: #465172;
+  --accent: #3366ff;
+  --danger: #ca3030;
+  --border: rgba(16, 30, 61, 0.14);
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1e2846 0%, var(--bg) 38%);
+  color: var(--text);
+}
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+.sidebar {
+  background: color-mix(in oklab, var(--panel) 92%, #fff 8%);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1rem;
+  overflow-y: auto;
+}
+h1 { margin: 0; }
+.subtitle { margin: 0.25rem 0 1rem; color: var(--subtle); }
+section { margin-top: 1rem; padding-top: 0.8rem; border-top: 1px solid var(--border); }
+h2 { margin: 0 0 0.6rem; font-size: 0.95rem; color: var(--subtle); text-transform: uppercase; letter-spacing: 0.06em; }
+.control-row { display: flex; gap: 0.45rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+button, input, label { font: inherit; }
+button {
+  background: var(--panel-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.45rem 0.65rem;
+  cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button.active { background: color-mix(in oklab, var(--accent) 22%, var(--panel-alt) 78%); border-color: var(--accent); }
+button.danger { color: #fff; background: color-mix(in oklab, var(--danger) 50%, var(--panel-alt) 50%); }
+.tool-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.45rem; }
+.layer-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 0.35rem 0.8rem; }
+.layer-grid label { display: flex; align-items: center; gap: 0.45rem; font-size: 0.88rem; color: var(--subtle); }
+label { display: grid; gap: 0.25rem; margin-bottom: 0.45rem; color: var(--subtle); font-size: 0.9rem; }
+input[type="range"], input[type="color"] { width: 100%; }
+.canvas-wrap {
+  background: color-mix(in oklab, var(--panel) 85%, #fff 15%);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+.canvas-toolbar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--subtle);
+  font-size: 0.9rem;
+}
+#hintText { text-align: center; }
+#designerCanvas {
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(0deg, #0000 0 39px, rgba(140,145,170,.12) 40px), repeating-linear-gradient(90deg, #0000 0 39px, rgba(140,145,170,.12) 40px), var(--panel);
+  cursor: crosshair;
+}
+
+body.hand-cursor #designerCanvas { cursor: grab; }
+@media (max-width: 1200px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar { max-height: 50vh; }
+  .canvas-wrap { min-height: 48vh; }
+  .canvas-toolbar { grid-template-columns: 1fr; }
+  #hintText { text-align: left; }
+}
