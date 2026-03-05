@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Effortless CAD Home Designer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-theme="dark">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <h1>Effortless CAD</h1>
+      <p class="subtitle">Professional home planner • AutoCAD-like workflow</p>
+
+      <section>
+        <h2>Workspace</h2>
+        <div class="control-row">
+          <button id="themeToggle">Toggle Theme</button>
+          <button id="wireframeToggle">Wireframe</button>
+          <button id="orthoToggle">Ortho: Off</button>
+        </div>
+        <div class="control-row">
+          <button id="zoomIn">Zoom +</button>
+          <button id="zoomOut">Zoom -</button>
+          <button id="zoomFit">Fit</button>
+          <button id="handTool">Hand</button>
+        </div>
+        <div class="control-row">
+          <button id="undoBtn">Undo</button>
+          <button id="redoBtn">Redo</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Tools</h2>
+        <div class="tool-grid" id="toolGrid">
+          <button data-tool="select" class="active">Select</button>
+          <button data-tool="room">Room</button>
+          <button data-tool="window">Window</button>
+          <button data-tool="door">Door</button>
+          <button data-tool="measure">Measure</button>
+          <button data-tool="text">Text</button>
+          <button data-tool="rect">Rectangle</button>
+          <button data-tool="circle">Circle</button>
+          <button data-tool="pen">Pen</button>
+          <button data-tool="highlighter">Highlighter</button>
+          <button id="hideAnnotations">Hide Markup</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Layers</h2>
+        <div class="layer-grid">
+          <label><input class="layerVis" data-layer="structure" type="checkbox" checked /> Structure</label>
+          <label><input class="layerLock" data-layer="structure" type="checkbox" /> Lock</label>
+          <label><input class="layerVis" data-layer="openings" type="checkbox" checked /> Openings</label>
+          <label><input class="layerLock" data-layer="openings" type="checkbox" /> Lock</label>
+          <label><input class="layerVis" data-layer="annotation" type="checkbox" checked /> Annotation</label>
+          <label><input class="layerLock" data-layer="annotation" type="checkbox" /> Lock</label>
+          <label><input class="layerVis" data-layer="markup" type="checkbox" checked /> Markup</label>
+          <label><input class="layerLock" data-layer="markup" type="checkbox" /> Lock</label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Selected</h2>
+        <label>
+          Fill Color
+          <input id="colorPicker" type="color" value="#9fb8ff" />
+        </label>
+        <label>
+          Stroke
+          <input id="strokePicker" type="color" value="#1d1f2a" />
+        </label>
+        <label>
+          Line Width
+          <input id="lineWidth" type="range" min="1" max="12" value="2" />
+        </label>
+        <div class="control-row">
+          <button id="bringFront">Bring Front</button>
+          <button id="sendBack">Send Back</button>
+        </div>
+        <div class="control-row">
+          <button id="duplicateSelected">Duplicate</button>
+          <button id="deleteSelected" class="danger">Delete</button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Project</h2>
+        <div class="control-row">
+          <button id="saveJson">Export JSON</button>
+          <button id="loadJson">Import JSON</button>
+          <input id="importFile" type="file" accept="application/json" hidden />
+        </div>
+        <div class="control-row">
+          <button id="clearCanvas">New Plan</button>
+        </div>
+      </section>
+    </aside>
+
+    <main class="canvas-wrap">
+      <div class="canvas-toolbar">
+        <span id="statusText">Tool: Select</span>
+        <span id="hintText">Shortcuts: Ctrl+Z/Y, Space=Hand, Shift=Ortho</span>
+        <span id="zoomText">100%</span>
+      </div>
+      <canvas id="designerCanvas" width="1800" height="1100"></canvas>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
