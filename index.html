@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MathVerse Pro Magazine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=STIX+Two+Text:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+        svg: { fontCache: "global" }
+      };
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+      defer
+    ></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>MathVerse <span>Ultra Pro</span></h1>
+      <div class="controls">
+        <button id="prevPage">◀ Previous</button>
+        <button id="nextPage">Next ▶</button>
+        <button id="modeToggle" aria-pressed="false">One-page mode</button>
+        <button id="ttsToggle" aria-pressed="false">Read aloud</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="reader-panel">
+        <div class="reader-meta">
+          <p><strong>Weekly Issue:</strong> #18 – April 2026</p>
+          <p>Tip: scroll / pinch for smooth non-linear zoom, tap page edge to flip.</p>
+        </div>
+
+        <div id="flipbookWrap" class="flipbook-wrap" aria-label="Interactive flipbook">
+          <div id="bookLighting" class="book-lighting"></div>
+          <div id="book" class="book" tabindex="0"></div>
+        </div>
+      </section>
+
+      <section class="lab-panel">
+        <h2>Creator Lab</h2>
+        <p>
+          Notion-like block editor for weekly publishing. Write rich text and LaTeX,
+          insert media, and push into magazine pages.
+        </p>
+
+        <div class="lab-actions">
+          <button data-block="heading">+ Heading</button>
+          <button data-block="paragraph">+ Paragraph</button>
+          <button data-block="equation">+ Equation</button>
+          <button data-block="image">+ Image</button>
+          <button data-block="video">+ Video</button>
+          <button id="publishBlocks">Publish to Preview Page</button>
+        </div>
+
+        <div id="blockEditor" class="block-editor" aria-label="Magazine creator lab"></div>
+      </section>
+    </main>
+
+    <aside id="lightbox" class="lightbox" hidden>
+      <button id="closeLightbox" class="close-lightbox">✕</button>
+      <img id="lightboxImage" alt="Expanded magazine visual" />
+      <p id="lightboxStatus" class="lightbox-status" aria-live="polite"></p>
+    </aside>
+  </body>
+</html>
