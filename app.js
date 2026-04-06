@@ -1,9 +1,25 @@
+function makeDemoImage(label, start = "#7aa2ff", end = "#2f3f77") {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='1400' height='900'>
+    <defs>
+      <linearGradient id='g' x1='0' y1='0' x2='1' y2='1'>
+        <stop offset='0%' stop-color='${start}'/>
+        <stop offset='100%' stop-color='${end}'/>
+      </linearGradient>
+    </defs>
+    <rect width='100%' height='100%' fill='url(#g)'/>
+    <circle cx='1120' cy='170' r='120' fill='rgba(255,255,255,0.14)'/>
+    <text x='80' y='150' font-size='68' fill='white' font-family='Inter,Arial,sans-serif'>${label}</text>
+    <text x='80' y='250' font-size='34' fill='rgba(255,255,255,0.92)' font-family='Inter,Arial,sans-serif'>MathVerse Weekly Visual</text>
+  </svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
 const issuePages = [
   {
     title: "Cover Story — Infinite Series in Nature",
     html: `
       <p>This week we model sunflower spirals with Fibonacci limits and estimate growth with $\\sum_{n=1}^{\\infty}\\frac{1}{n^2}$.</p>
-      <img class="inline-photo" src="https://images.unsplash.com/photo-1472141521881-95d0e87e2e39?auto=format&fit=crop&w=1200&q=80" alt="Sunflower pattern" />
+      <img class="inline-photo" src="${makeDemoImage("Sunflower Spirals", "#b57d2e", "#3d2610")}" alt="Sunflower pattern" />
       <p>Scan the QR to run an interactive simulation:</p>
       <a class="qr-link" target="_blank" rel="noopener" href="https://www.geogebra.org/">
         🔳 Open QR destination (GeoGebra)
@@ -15,7 +31,7 @@ const issuePages = [
     html: `
       <p>Solve for all functions satisfying $f(x+y)=f(x)f(y)$ over $\\mathbb{R}$ under continuity assumptions.</p>
       <p>Classic result: $f(x)=e^{cx}$.</p>
-      <img class="inline-photo" src="https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1200&q=80" alt="Notebook equations" />
+      <img class="inline-photo" src="${makeDemoImage("Functional Equations", "#3f68c7", "#172754")}" alt="Notebook equations" />
     `
   },
   {
@@ -24,7 +40,7 @@ const issuePages = [
       <p>Train a lightweight model to classify handwritten symbols and verify symbolic identities.</p>
       <p>Featured equation: $\\int_0^1 x^a(1-x)^b dx = \\frac{\\Gamma(a+1)\\Gamma(b+1)}{\\Gamma(a+b+2)}$.</p>
       <p>Tap images to inspect details in high resolution.</p>
-      <img class="inline-photo" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="Data charts" />
+      <img class="inline-photo" src="${makeDemoImage("Math + AI Lab", "#1b8d7f", "#0f2f2a")}" alt="Data charts" />
     `
   },
   {
@@ -51,6 +67,7 @@ const modeToggle = document.getElementById("modeToggle");
 const ttsToggle = document.getElementById("ttsToggle");
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
+const lightboxStatus = document.getElementById("lightboxStatus");
 const closeLightbox = document.getElementById("closeLightbox");
 const blockEditor = document.getElementById("blockEditor");
 const publishBlocks = document.getElementById("publishBlocks");
@@ -162,18 +179,31 @@ function bindPhotoZoom() {
   book.querySelectorAll(".inline-photo").forEach((img) => {
     img.addEventListener("click", () => {
       lightboxImage.src = img.src;
+      lightboxStatus.textContent = "";
       lightbox.hidden = false;
     });
   });
 }
 
-closeLightbox.addEventListener("click", () => {
+function closeLightboxModal() {
   lightbox.hidden = true;
-});
+}
+
+closeLightbox.addEventListener("click", closeLightboxModal);
 
 lightbox.addEventListener("click", (e) => {
   if (e.target === lightbox) {
-    lightbox.hidden = true;
+    closeLightboxModal();
+  }
+});
+
+lightboxImage.addEventListener("error", () => {
+  lightboxStatus.textContent = "Image failed to load. Tap close (✕) to exit preview.";
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !lightbox.hidden) {
+    closeLightboxModal();
   }
 });
 
